@@ -1,13 +1,14 @@
 {% extends 'libguide/base_blti.html' %}
 
 {% load verbatim_templatetag %}
+{% load staticfiles %}
 
 {% block content %}
 
 <div class="canvas-UW-libguide-container">
 
 <!-- Header and help text -->
-<img src="libguide/img/libwordmark.png"/>
+<img src="{% static "libguide/img/libwordmark.png" %}"/>
 
 <p class="intro">Start your research with the
     <!-- Bothell -->{% if "uwcourse:bothell" in curriculum.subaccount_id %}<a href="http://library.uwb.edu/" target="_blank">UW Bothell Campus Library website</a>
