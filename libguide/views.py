@@ -6,6 +6,7 @@ from django.core.context_processors import csrf
 from blti import BLTI, BLTIException
 from libguide.models import CurriculumGuide
 
+
 # CourseList
 @csrf_exempt
 def LibGuide(request, template='libguide/libguide.html'):
@@ -18,11 +19,13 @@ def LibGuide(request, template='libguide/libguide.html'):
 
     try:
         blti = BLTI()
-        if hasattr(settings, 'NO_AUTH') and settings.NO_AUTH and 'testme' in request.GET:
+        if (hasattr(settings, 'NO_AUTH') and settings.NO_AUTH and
+                'testme' in request.GET):
+            course_id = request.GET.get('courseid', '2013-autumn-BIOL-101-A')
             blti_data = {
                 'custom_canvas_user_login_id': 'testuser',
                 'custom_canvas_course_id': '66666666',
-                'lis_course_offering_sourcedid': request.GET.get('courseid') if 'courseid' in request.GET else '2013-autumn-BIOL-101-A'
+                'lis_course_offering_sourcedid': course_id,
             }
         else:
             blti_data = blti.validate(request)

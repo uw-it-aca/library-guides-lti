@@ -24,7 +24,7 @@ class SubjectGuide(models.Model):
     """
     library = models.ForeignKey(Library,
                                 related_name="+",
-                                  null=True,
+                                null=True,
                                 on_delete=models.PROTECT)
     librarian = models.ForeignKey(Librarian,
                                   related_name="+",
