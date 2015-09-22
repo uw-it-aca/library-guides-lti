@@ -25,17 +25,14 @@
     <div id="wrapper" class="container" style="position:relative;">
 
         <div id="main-wrapper">
-        	<div id="main" aria-labelledby="uw_grading_scheme_header">
+        	<div id="main" aria-labelledby="uw_libguide_header">
         	   <div class="inner">{% block content %}{% endblock %}</div>
         	</div><!--end #main-->
         </div>
     </div>
 
 	<!-- javascript last for faster page loading -->
-    {% compress js %}
     <script src="{% static "libguide/js/vendor/bootstrap-3.0.0.min.js" %}"></script>
-	{% block javascript %}{% endblock %}
-    {% endcompress %}
 
 </body>
 </html>

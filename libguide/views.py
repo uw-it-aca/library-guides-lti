@@ -8,7 +8,7 @@ from libguide.models import CurriculumGuide
 
 # CourseList
 @csrf_exempt
-def LibGuide(request, template='libguide.html'):
+def LibGuide(request, template='libguide/libguide.html'):
     blti_data = {"context_label": "NO COURSE"}
     validation_error = None
     sis_course_id = 'None'
