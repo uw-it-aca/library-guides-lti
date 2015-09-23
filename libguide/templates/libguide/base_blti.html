@@ -7,16 +7,10 @@
 	<meta name="HandheldFriendly" content="true">
 
     {% load staticfiles %}
-    {% load compress %}
 
     <link rel="stylesheet" type="text/css" href="{% static "libguide/css/vendor/bootstrap-3.0.0.min.css" %}"/>
     <link rel="stylesheet" type="text/css" href="{% static "libguide/css/vendor/font-awesome-4.0.3.min.css" %}"/>
-
-    {% compress css %}
-    <link rel="stylesheet" type="text/less" href="{% static "libguide/css/mobile.less" %}" media="screen, handheld" />
-    <link rel="stylesheet" type="text/less" href="{% static "libguide/css/desktop.less" %}" media="screen and (min-width: 480px)" />
     <link rel="stylesheet" type="text/less" href="{% static "libguide/css/blti.less" %}" media="screen and (min-width: 480px)" />
-    {% endcompress %}
 
     <link rel="shortcut icon" href="{% static "libguide/img/favicon.ico" %}">
 </head>
