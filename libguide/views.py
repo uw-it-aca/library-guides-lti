@@ -52,13 +52,13 @@ def LibGuide(request, template='libguide/libguide.html'):
         except:
             libguide = CurriculumGuide()
 
-    except BLTIException, err:
-        params['validation_error'] = str(err)
-        template = 'lti_fail.html'
+    except BLTIException as err:
+        params['validation_error'] = err
+        template = 'libguide/error.html'
         status_code = 401
-    except Exception, err:
-        params['validation_error'] = str(err)
-        template = 'lti_fail.html'
+    except Exception as err:
+        params['validation_error'] = err
+        template = 'libguide/error.html'
         status_code = 400
 
     t = loader.get_template(template)
