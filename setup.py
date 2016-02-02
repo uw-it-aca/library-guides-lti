@@ -19,9 +19,6 @@ setup(
         'django-compressor',
         'django-templatetag-handlebars'
     ],
-    dependency_links = [
-        'http://github.com/uw-it-aca/django-blti#egg=django_blti',
-    ],
     license='Apache License, Version 2.0',  # example license
     description='An LTI app for displaying Library Subject Guides in a Canvas course ',
     long_description=README,
