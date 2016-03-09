@@ -11,11 +11,13 @@
     <blti:launch_url>https://example.uw.edu/libguide/</blti:launch_url>
     <blti:title>UW Libraries</blti:title>
     <blti:description>Add a UW Library Subject Guide to your course</blti:description>
-    <blti:custom> 
-      <lticm:property name="courseid_parameter">lis_course_offering_sourcedid</lticm:property> 
-      <lticm:property name="userid_parameter">lis_person_sourcedid</lticm:property> 
-      <lticm:property name="application_type">UWLibGuide</lticm:property> 
-    </blti:custom>
+    <blti:custom>
+      <lticm:property name="courseid_parameter">lis_course_offering_sourcedid</lticm:property>
+      <lticm:property name="userid_parameter">lis_person_sourcedid</lticm:property>
+      <lticm:property name="application_type">UWLibGuide</lticm:property>
+      <lticm:property name="custom_canvas_account_id">$Canvas.account.id</lticm:property>
+      <lticm:property name="custom_canvas_account_sis_id">$Canvas.account.sisSourceId</lticm:property>
+  </blti:custom>
     <blti:extensions platform="canvas.instructure.com">
       <lticm:property name="privacy_level">public</lticm:property>
       <lticm:options name="course_navigation">
