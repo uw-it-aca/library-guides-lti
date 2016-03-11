@@ -38,7 +38,7 @@
         {% endif %}<!-- all done checking for subject guides for Bothell -->
         <li> <!-- link to the Bothell citation guide -->
             <div>
-                <a href="http://libguides.uwb.edu/citation" target="_blank">Citation Styles & Tools</a><br />
+                <a href="http://libguides.uwb.edu/citation" target="_blank">Citation Styles &amp; Tools</a><br />
                 {{ subject_guide.writing_guide_text }}
             </div>
         </li><!-- all done Bothell citation guide -->
@@ -78,7 +78,7 @@
         {% endif %}<!-- all done checking for subject guides for Tacoma -->
         <li> <!-- link to the Tacoma citation guide -->
             <div>
-                <a href="http://libguides.tacoma.uw.edu/citations" target="_blank">Citation Styles & Tools</a><br />
+                <a href="http://libguides.tacoma.uw.edu/citations" target="_blank">Citation Styles &amp; Tools</a><br />
                 {{ subject_guide.writing_guide_text }}
             </div>
         </li><!-- all done Tacoma citation guide -->
@@ -101,24 +101,19 @@
         {% endif %}<!-- all done checking for UWT libraries -->
 
     {% else %} <!-- then you must be Seattle -->
-        {% if subject_guide.has_discipline %} <!-- if there is a subject guide, link to it -->
-            <li>
-                <div>
-                    <a href="{{ subject_guide.guide_url }}" target="_blank">{{ subject_guide.guide_text }}</a><br />
-                    Get research recommendations and tips tailored to your subject area via this online guide.
-                </div>
-            </li>
-            {% else %}<!-- If there is NO subject guide, link to default Seattle subj guides page -->
-            <li>
-                <div>
-                    <a href="http://guides.lib.washington.edu/subject" target="_blank">UW Libraries Subject Guides</a><br />
-                    Get research recommendations and tips tailored to your subject area via this list of online guides.
-                </div>
-            </li>
-        {% endif %}<!-- all done checking for subject guides for Seattle -->
+        <li>
+            <div>
+                <a href="{{ subject_guide.guide_url }}" target="_blank">{{ subject_guide.guide_text }}</a><br />
+                {% if subject_guide.has_discipline %}
+                Get research recommendations and tips tailored to your subject area via this online guide.
+                {% else %}
+                Get research recommendations and tips tailored to your subject area via this list of online guides.
+                {% endif %}
+            </div>
+        </li>
         <li> <!-- link to the Seattle citation guide -->
             <div>
-                <a href="{{ subject_guide.writing_guide_url }}" target="_blank">Citation Styles & Tools</a><br />
+                <a href="{{ subject_guide.writing_guide_url }}" target="_blank">Citation Styles &amp; Tools</a><br />
                 {{ subject_guide.writing_guide_text }}
             </div>
         </li>

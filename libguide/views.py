@@ -15,6 +15,7 @@ def LibGuide(request, template='libguide/libguide.html'):
     blti_data = {"context_label": "NO COURSE"}
     validation_error = None
     status_code = 200
+    generic_guide_url = '2000-autumn-NONE-000-A'
     params = {}
 
     try:
@@ -37,10 +38,17 @@ def LibGuide(request, template='libguide/libguide.html'):
         try:
             CoursePolicy().valid_academic_course_sis_id(sis_course_id)
         except CoursePolicyException as err:
-            sis_course_id = '2000-autumn-NONE-000-A'
+            sis_course_id = generic_guide_url
 
-        subject_guide = get_subject_guide_for_canvas_course_sis_id(
-            sis_course_id)
+        try:
+            subject_guide = get_subject_guide_for_canvas_course_sis_id(
+                sis_course_id)
+        except DataFailureException as err:
+            if err.status == 404:
+                subject_guide = get_subject_guide_for_canvas_course_sis_id(
+                    generic_guide_url)
+            else:
+                raise
 
         # Boolean is nice here
         subject_guide.has_discipline = True if (
@@ -53,9 +61,10 @@ def LibGuide(request, template='libguide/libguide.html'):
         template = 'blti/error.html'
         status_code = 401
     except DataFailureException as err:
-        params['validation_error'] = '%s' % err.msg
+        params['validation_error'] = (
+            'UW Libraries Subject Guides are not available: %s' % err.msg)
         template = 'blti/error.html'
-        status_code = 500
+        status_code = err.status
     except Exception as err:
         params['validation_error'] = err
         template = 'blti/error.html'
