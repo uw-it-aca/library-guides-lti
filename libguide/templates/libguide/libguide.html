@@ -11,172 +11,70 @@
 <img src="{% static "libguide/img/libwordmark.png" %}"/>
 
 <p class="intro">Start your research with the
-    <!-- Bothell -->{% if "uwcourse:bothell" in subaccount_id %}<a href="http://library.uwb.edu/" target="_blank">UW Bothell Campus Library website</a>
-    <!-- Tacoma -->{% elif "uwcourse:tacoma" in subaccount_id %}<a href="http://www.tacoma.uw.edu/library" target="_blank">UW Tacoma Library website</a>
-    <!-- else -->{% else %}<a href="http://www.lib.washington.edu" target="_blank">UW Libraries website</a>{% endif %}
-     in order to access thousands of resources specifically tailored to the study of {{ subject_guide.discipline }}. Use the links below to learn more about what the Libraries can do for you.</p>
+    {% with subject_guide.libraries|first as library %}
+    <a href="{{ library.url }}" target="_blank">{{ library.name }}</a>
+     in order to access thousands of resources specifically tailored to the study of {{ subject_guide.discipline|default:"your discipline" }}. Use the links below to learn more about what the Libraries can do for you.</p>
 
-<h2 id="uw_libguide_header">Library resources for {{ subject_guide.discipline }}</h2>
+<h2 id="uw_libguide_header">Library resources for {{ subject_guide.discipline|default:"your discipline" }}</h2>
 
 <ul><!-- library resources list -->
-    <!-- but first check for which campus -->
-    {% if "uwcourse:bothell" in subaccount_id %} <!-- are you Bothell? -->
-        {% if subject_guide.has_discipline %} <!-- if there is a subject guide, link to it -->
-            <li>
-                <div>
-                    <a href="{{ subject_guide.guide_url }}" target="_blank">{{ subject_guide.guide_text }}</a><br />
-                    Get research recommendations and tips tailored to your subject area via this online guide.
-                </div>
-            </li>
-        {% else %}<!-- If there is NO subject guide, link to default Bothell subj guides page -->
-            <li>
-                <div>
-                    <a href="http://libguides.uwb.edu/" target="_blank">UW Bothell Campus Library Subject Guides</a><br />
-                    Get research recommendations and tips tailored to your subject area via this list of online guides.
-                </div>
-            </li>
-        {% endif %}<!-- all done checking for subject guides for Bothell -->
-        <li> <!-- link to the Bothell citation guide -->
-            <div>
-                <a href="http://libguides.uwb.edu/citation" target="_blank">Citation Styles &amp; Tools</a><br />
-                {{ subject_guide.writing_guide_text }}
-            </div>
-        </li><!-- all done Bothell citation guide -->
-        {% if subject_guide.libraries|length %} <!-- if there is a library associated with the subj guide, put that info -->
-            {% with subject_guide.libraries|first as library %}
-            <li>
-                <div>
-                    <a href="{{ library.url }}" target="_blank">{{ library.name }}</a><br />
-                    {{ library.description }}
-                </div>
-            </li>
-            {% endwith %}
-        {% else %}<!-- if no library, link directly to UWB library info -->
-            <li>
-                <div>
-                    <a href="http://library.uwb.edu/" target="_blank">UW Bothell Campus Library</a><br />
-                    The Campus Library is part of the UW Libraries, and serves the students, faculty and staff of the University of Washington Bothell and Cascadia Community College.
-                </div>
-            </li>
-        {% endif %}<!-- all done checking for UWB libraries -->
-
-    {% elif "uwcourse:tacoma" in subaccount_id %} <!-- or maybe you are Tacoma? -->
-         {% if subject_guide.has_discipline %} <!-- if there is a subject guide, link to it -->
-            <li>
-                <div>
-                    <a href="{{ subject_guide.guide_url }}" target="_blank">{{ subject_guide.guide_text }}</a><br />
-                    Get research recommendations and tips tailored to your subject area via this online guide.
-                </div>
-            </li>
-        {% else %}<!-- If there is NO subject guide, link to default Tacoma subj guides page -->
-            <li>
-                <div>
-                    <a href="http://libguides.tacoma.uw.edu/friendly.php?s=researchguides" target="_blank">UW Tacoma Libraries Subject Guides</a><br />
-                    Get research recommendations and tips tailored to your subject area via this list of online guides.
-                </div>
-            </li>
-        {% endif %}<!-- all done checking for subject guides for Tacoma -->
-        <li> <!-- link to the Tacoma citation guide -->
-            <div>
-                <a href="http://libguides.tacoma.uw.edu/citations" target="_blank">Citation Styles &amp; Tools</a><br />
-                {{ subject_guide.writing_guide_text }}
-            </div>
-        </li><!-- all done Tacoma citation guide -->
-        {% if subject_guide.libraries|length %} <!-- if there is a UWT library associated with the subj guide, put that info -->
-            {% with subject_guide.libraries|first as library %}
-            <li>
-                <div>
-                    <a href="{{ library.url }}" target="_blank">{{ library.name }}</a><br />
-                    {{ library.description }}
-                </div>
-            </li>
-            {% endwith %}
-        {% else %}<!-- if no library, link directly to UWT library info -->
-            <li>
-                <div>
-                    <a href="http://www.tacoma.uw.edu/library" target="_blank">UW Tacoma Library</a><br />
-                    The UW Tacoma Library is part of the UW Libraries, and serves the students, faculty and staff of the University of Washington Tacoma.
-                </div>
-            </li>
-        {% endif %}<!-- all done checking for UWT libraries -->
-
-    {% else %} <!-- then you must be Seattle -->
-        <li>
-            <div>
-                <a href="{{ subject_guide.guide_url }}" target="_blank">{{ subject_guide.guide_text }}</a><br />
-                {% if subject_guide.has_discipline %}
-                Get research recommendations and tips tailored to your subject area via this online guide.
-                {% else %}
-                Get research recommendations and tips tailored to your subject area via this list of online guides.
-                {% endif %}
-            </div>
-        </li>
-        <li> <!-- link to the Seattle citation guide -->
-            <div>
-                <a href="{{ subject_guide.writing_guide_url }}" target="_blank">Citation Styles &amp; Tools</a><br />
-                {{ subject_guide.writing_guide_text }}
-            </div>
-        </li>
-        {% if subject_guide.libraries|length %} <!-- if there is a library associated with the subj guide, put that info -->
-            {% with subject_guide.libraries|first as library %}
-            <li>
-                <div>
-                    <a href="{{ library.url }}" target="_blank">{{ library.name }}</a><br />
-                    {{ library.description }}
-                </div>
-            </li>
-            {% endwith %}
-        {% else %} <!-- if no library, print Suzz/Allen and OUGL -->
-            <li>
-                <div>
-                    <a href="http://www.lib.washington.edu/suzzallo" target="_blank">Suzzallo And Allen Libraries</a><br />
-                    The largest library at UW, offering print and electronic resources in support of all the major academic disciplines.
-                </div>
-            </li>
-            <li>
-                <div>
-                    <a href="http://www.lib.washington.edu/ougl" target="_blank">Odegaard Undergraduate Library</a><br />
-                    Providing a wide range of services and tools in support of undergraduate learning and research, and home to the Odegaard Writing and Research Center.
-                </div>
-            </li>
-        {% endif %}<!-- all done checking for libraries -->
-    {% endif %} <!-- end campus-specific library resources section -->
+    <li>
+        <div>
+            <a href="{{ subject_guide.guide_url }}" target="_blank">{{ subject_guide.guide_text }}</a><br />
+            Get research recommendations and tips tailored to your subject area via this online guide.
+        </div>
+    </li>
+    <li>
+        <div>
+            <a href="{{ subject_guide.writing_guide_url }}" target="_blank">Citation Styles &amp; Tools</a><br />
+            {{ subject_guide.writing_guide_text }}
+        </div>
+    </li>
+    {% for library in subject_guide.libraries %}
+    <li>
+        <div>
+            <a href="{{ library.url }}" target="_blank">{{ library.name }}</a><br />
+            {{ library.description }}
+        </div>
+    </li>
+    {% endfor %}
 </ul>
 
 <h2>Need help?</h2>
 
 <div class="row-fluid">
 
+    {% if subject_guide.contact_url %}
     <div class="span4">
-        <h3><!-- Bothell -->{% if "uwcourse:bothell" in subaccount_id %}<a href="http://library.uwb.edu/askus.html" target="_blank"><!-- Tacoma -->{% elif "uwcourse:tacoma" in subaccount_id %}<a href="http://www.tacoma.uw.edu/library/contact-us" target="_blank"><!-- else -->{% else %}<a href="{{ subject_guide.contact_url }}" target="_blank">{% endif %}Ask Us!</a></h3>
+        <h3><a href="{{ subject_guide.contact_url }}" target="_blank">Ask Us!</a></h3>
         <p>{{ subject_guide.contact_text }}</p>
     </div>
+    {% endif %}
 
+    {% if subject_guide.faq_url %}
     <div class="span4">
-        <h3><!-- Bothell -->{% if "uwcourse:bothell" in subaccount_id %}<a href="http://libguides.uwb.edu/howdoi" target="_blank"><!-- Tacoma -->{% elif "uwcourse:tacoma" in subaccount_id %}<a href="{{ subject_guide.faq_url }}" target="_blank"><!-- else -->{% else %}<a href="{{ subject_guide.faq_url }}" target="_blank">{% endif %}"How Do I..." Tutorials</a></h3>
+        <h3><a href="{{ subject_guide.faq_url }}" target="_blank">"How Do I..." Tutorials</a></h3>
         <p>{{ subject_guide.faq_text }}</p>
     </div>
+    {% endif %}
 
+    {% if subject_guide.find_librarian_url %}
     <div class="span4">
-        {% if subject_guide.librarians|length %} <!-- if there's a librarian, put this text -->
-        {% with subject_guide.librarians|first as librarian %}
-        <h3><!-- Bothell -->{% if "uwcourse:bothell" in subaccount_id %}<a href="http://library.uwb.edu/selectors.html" target="_blank"><!-- Tacoma -->{% elif "uwcourse:tacoma" in subaccount_id %}<a href="{{ subject_guide.librarian_url }}" target="_blank"><!-- else -->{% else %}<a href="{{ subject_guide.librarian_url }}" target="_blank">{% endif %}Find Your Librarian</a></h3>
-            <p>{{ subject_guide.librarian_text }}</p>
-            <p>
+        <h3><a href="{{ subject_guide.find_librarian_url }}" target="_blank">Find Your Librarian</a></h3>
+        <p>{{ subject_guide.find_librarian_text }}</p>
+
+        {% for librarian in subject_guide.librarians %}
+        <p>
             {% if librarian.url %} <!-- only link to the librarian's page if there is one -->
                 <a href="{{ librarian.url }}" target="_blank">{{ librarian.name }}</a>
             {% else %}<!-- if no subject librarian link -->
                 {{ librarian.name }}
             {% endif %}
             {% if librarian.email %}<br /><a href="mailto:{{ librarian.email }}" target="_blank">{{ librarian.email }}</a>{% endif %}
-            </p>
-        {% endwith %}
-        {% else %}<!-- if no subject librarian, link to the subj lib index -->
-        <h3><!-- Bothell -->{% if "uwcourse:bothell" in subaccount_id %}<a href="http://library.uwb.edu/selectors.html" target="_blank"><!-- Tacoma -->{% elif "uwcourse:tacoma" in subaccount_id %}<a href="{{ subject_guide.librarian_url }}" target="_blank"><!-- else -->{% else %}<a href="{{ subject_guide.librarian_url }}" target="_blank">{% endif %}Subject Librarians</a></h3>
-            <p>{{ subject_guide.librarian_text }}</p>
-        {% endif %}
+        </p>
+        {% endfor %}
     </div>
-
+    {% endif %}
 </div>
 </div>
 {% endblock %}
