@@ -26,7 +26,7 @@ def LibGuide(request, template='libguide/libguide.html'):
         canvas_course_id = blti_data.get('custom_canvas_course_id')
         sis_course_id = blti_data.get('lis_course_offering_sourcedid',
                                       'course_%s' % canvas_course_id)
-        subaccount_id = blti_data.get('custom_canvas_account_sis_id')
+        subaccount_id = blti_data.get('custom_canvas_account_sis_id', '')
         blti.set_session(request, user_id=canvas_login_id)
 
         if 'uwcourse:tacoma' in subaccount_id:

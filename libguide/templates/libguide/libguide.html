@@ -13,7 +13,8 @@
 <p class="intro">Start your research with the
     {% with subject_guide.libraries|first as library %}
     <a href="{{ library.url }}" target="_blank">{{ library.name }}</a>
-     in order to access thousands of resources specifically tailored to the study of {{ subject_guide.discipline|default:"your discipline" }}. Use the links below to learn more about what the Libraries can do for you.</p>
+    {% endwith %}
+    in order to access thousands of resources specifically tailored to the study of {{ subject_guide.discipline|default:"your discipline" }}. Use the links below to learn more about what the Libraries can do for you.</p>
 
 <h2 id="uw_libguide_header">Library resources for {{ subject_guide.discipline|default:"your discipline" }}</h2>
 
