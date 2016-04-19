@@ -36,17 +36,26 @@ def LibGuide(request, template='libguide/libguide.html'):
         else:
             campus = 'seattle'
 
+        subject_guide = None
         try:
             CoursePolicy().valid_academic_course_sis_id(sis_course_id)
 
-            subject_guide = get_subject_guide_for_canvas_course_sis_id(
-                sis_course_id)
+            try:
+                subject_guide = get_subject_guide_for_canvas_course_sis_id(
+                    sis_course_id)
 
-            if (subject_guide.is_default_guide and
-                    subject_guide.default_guide_campus.lower() != campus):
-                subject_guide = get_default_subject_guide(campus=campus)
+                # Library service only returns Seattle campus default guide
+                if (subject_guide.is_default_guide and
+                        subject_guide.default_guide_campus.lower() != campus):
+                    subject_guide = None
+
+            except DataFailureException as err:
+                pass
 
         except CoursePolicyException as err:
+            pass
+
+        if subject_guide is None:
             subject_guide = get_default_subject_guide(campus=campus)
 
         params['campus'] = campus
