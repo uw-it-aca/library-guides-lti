@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, url, include
-from libguides.views import LibGuideView
+from libguide.views import LibGuideView
 
 
 urlpatterns = patterns(
