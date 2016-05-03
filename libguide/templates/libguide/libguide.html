@@ -10,6 +10,11 @@
 <!-- Header and help text -->
 <img src="{% static "libguide/img/libwordmark.png" %}"/>
 
+{% if error %}
+<p>{{ error }}</p>
+{% endif %}
+
+{% if subject_guide %}
 <p class="intro">Start your research with the
     {% with subject_guide.libraries|first as library %}
     <a href="{{ library.url }}" target="_blank">{{ library.name }}</a>
@@ -77,5 +82,6 @@
     </div>
     {% endif %}
 </div>
+{% endif %}
 </div>
 {% endblock %}
