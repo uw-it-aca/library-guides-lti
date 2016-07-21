@@ -23,6 +23,14 @@
 <h2 id="uw_libguide_header">Library resources for {{ subject_guide.discipline|default:"your discipline" }}</h2>
 
 <ul><!-- library resources list -->
+    {%if subject_guide.course_guide %}
+    <li>
+        <div>
+          <a href="{{ subject_guide.course_guide.guide_url }}" target="_blank">{{ subject_guide.course_guide.guide_text }}</a><br />
+          Use this online course guide for help with research assignments in your specific course.
+        </div>
+    </li>
+  {% endif %}
     <li>
         <div>
             <a href="{{ subject_guide.guide_url }}" target="_blank">{{ subject_guide.guide_text }}</a><br />
