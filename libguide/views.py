@@ -1,7 +1,8 @@
 from blti.views import BLTILaunchView
-from sis_provisioner.policy import CoursePolicy, CoursePolicyException
-from restclients.library.currics import (
-    get_subject_guide_for_canvas_course_sis_id, get_default_subject_guide)
+from sis_provisioner.dao.course import valid_academic_course_sis_id
+from sis_provisioner.exceptions import CoursePolicyException
+from restclients.library.currics import get_default_subject_guide,\
+    get_subject_guide_for_canvas_course_sis_id
 from restclients.exceptions import DataFailureException
 
 
@@ -26,8 +27,7 @@ class LibGuideView(BLTILaunchView):
 
         subject_guide = None
         try:
-            CoursePolicy().valid_academic_course_sis_id(sis_course_id)
-
+            valid_academic_course_sis_id(sis_course_id)
             try:
                 subject_guide = get_subject_guide_for_canvas_course_sis_id(
                     sis_course_id)
