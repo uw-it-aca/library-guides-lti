@@ -4,6 +4,7 @@ from sis_provisioner.exceptions import CoursePolicyException
 from restclients.library.currics import get_default_subject_guide,\
     get_subject_guide_for_canvas_course_sis_id
 from restclients.exceptions import DataFailureException
+from urllib3.exceptions import MaxRetryError
 
 
 class LibGuideView(BLTILaunchView):
@@ -37,7 +38,7 @@ class LibGuideView(BLTILaunchView):
                         subject_guide.default_guide_campus.lower() != campus):
                     subject_guide = None
 
-            except DataFailureException as err:
+            except (MaxRetryError, DataFailureException) as err:
                 pass
 
         except CoursePolicyException as err:
@@ -46,9 +47,9 @@ class LibGuideView(BLTILaunchView):
         if subject_guide is None:
             try:
                 subject_guide = get_default_subject_guide(campus=campus)
-            except DataFailureException as err:
+            except (MaxRetryError, DataFailureException) as err:
                 return {'error': (
                     'UW Libraries Subject Guides are not available: %s' % (
-                        err.msg))}
+                        getattr(err, 'msg', 'Service not available')))}
 
         return {'campus': campus, 'subject_guide': subject_guide}
