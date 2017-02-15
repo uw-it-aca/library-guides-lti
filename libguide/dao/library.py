@@ -1,5 +1,6 @@
 from restclients.library.currics import (
     get_default_subject_guide, get_subject_guide_for_canvas_course_sis_id)
+from restclients.exceptions import DataFailureException
 from sis_provisioner.dao.course import valid_academic_course_sis_id
 from sis_provisioner.exceptions import CoursePolicyException
 
@@ -18,7 +19,7 @@ def get_subject_guide(sis_course_id, campus):
 
         return subject_guide
 
-    except CoursePolicyException:
+    except (CoursePolicyException, DataFailureException):
         return get_default_subject_guide(campus=campus)
 
 
