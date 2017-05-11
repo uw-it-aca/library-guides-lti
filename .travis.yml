@@ -1,18 +1,30 @@
 sudo: false
 language: python
 python:
-  - "2.7"
+- '2.7'
 before_install:
-  - cp travis-ci/test_requirements.txt requirements.txt
-install: pip install -r requirements.txt
+- cp travis-ci/test_requirements.txt requirements.txt
 before_script:
-  - pip install coverage
-  - pip install python-coveralls
-  - pip install pep8
-  - cp travis-ci/manage.py manage.py
+- pip install -r requirements.txt
+- pip install coverage
+- pip install python-coveralls
+- pip install pep8
+- cp travis-ci/manage.py manage.py
 script:
-  - pep8 libguide/ --exclude=migrations
-  - coverage run --source=libguide/ manage.py test libguide
-after_script:
-  - coveralls
-notifications:
+- pep8 libguide/ --exclude=migrations
+- coverage run --source=libguide/ manage.py test libguide
+after_success:
+- coveralls
+before_deploy:
+- find libguide/ -name \*.pyc -exec rm {} \;
+- echo $TRAVIS_TAG > libguide/VERSION
+deploy:
+  provider: pypi
+  server: https://pypi.python.org/pypi
+  user: uw-it-aca
+  skip_cleanup: true
+  password:
+    secure: bHyGXInUT6eMuhrrrjBvgArWkrPFUQgDPVNEr7MMPaHACmi3MKFAXZqAuXbVemF2vf9+FB6MYLEqIOCfE5CUtkkIfXRzEvkCu2HjiOrAVAKqx9R0dqh5sS5WL2w3ESO8tZNN5H1sSrdzYDRjVPl0Nh0P25GSQmG2gJuitNI1fE1AiE/7l6uJVMNEKWWe8Mei9KIYhyEh22tUT74zKtPlR9UjeaFOmu30icWN89vQjzpiM1F8LcvGw+HzKfC3AKemFazY83u0uG/2OV6zvrLL8MunSb6TI07MV1+PFXGKltI8UKpVWGdH8vlQcA0LpZJcFeRwfoFniu6Q0PB9/LIhaXk59D/gOv6J/r7rru+PxNOJOaCCM7pOU/FsrrZnlLnQla+M2LN6kLQRIWfpd5xoeS7jHtA8P8oB7l3vZWCLO+BTzvvGzoDzJe5OP4/0TmZcfz74C3r0Myb32DQq0FTBgndu0PZ6VlMjfmWsEpIjjqcTaDVj4fdww4A49K/qaDMXGY13YWk2QjqjlVdTxohGuqvD1ZbK3JhlW2iiE+RC/6K5NR4/3DJRdVJRKFkawy5OOWI8scd34KGI42zeCjTgCkNiVdy4kSIQxLqvl1FBEXQwyisyTcwAM3mwtp2E5BlUBtjzLMJkOQnv2St94EHvNXXYppJdS1zAPt7Dhv6N9Qo=
+  on:
+    tags: true
+    python: '2.7'

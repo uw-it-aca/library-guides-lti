@@ -1,6 +1,6 @@
-from restclients.library.currics import (
+from uw_libraries.subject_guides import (
     get_default_subject_guide, get_subject_guide_for_canvas_course_sis_id)
-from restclients.exceptions import DataFailureException
+from restclients_core.exceptions import DataFailureException
 from sis_provisioner.dao.course import valid_academic_course_sis_id
 from sis_provisioner.exceptions import CoursePolicyException
 

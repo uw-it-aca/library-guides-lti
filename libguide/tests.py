@@ -1,8 +1,10 @@
 from django.test import TestCase
 from libguide.dao.library import campus_from_subaccount, get_subject_guide
+from uw_libraries.util import fdao_subject_guide_override
 import mock
 
 
+@fdao_subject_guide_override
 class LibraryDAOTest(TestCase):
     def test_campus_from_subaccount(self):
         self.assertEquals(
@@ -23,13 +25,9 @@ class LibraryDAOTest(TestCase):
         r = get_subject_guide('course_12345', 'tacoma')
         mock_fn.assert_called_with(campus='tacoma')
 
-        with self.settings(
-                RESTCLIENTS_LIBCURRICS_DAO_CLASS=(
-                    'restclients.dao_implementation.library.currics.File')):
-
-            # 404, fails over to default guide
-            r = get_subject_guide('2015-autumn-GEN STU-201-A', 'bothell')
-            mock_fn.assert_called_with(campus='bothell')
+        # 404, fails over to default guide
+        r = get_subject_guide('2015-autumn-GEN STU-201-A', 'bothell')
+        mock_fn.assert_called_with(campus='bothell')
 
     @mock.patch(
         'libguide.dao.library.get_subject_guide_for_canvas_course_sis_id')

@@ -1,0 +1,2 @@
+include libguide/VERSION
+recursive-include libguide *

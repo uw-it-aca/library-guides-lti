@@ -1,6 +1,6 @@
 from blti.views import BLTILaunchView
 from libguide.dao.library import campus_from_subaccount, get_subject_guide
-from restclients.exceptions import DataFailureException
+from restclients_core.exceptions import DataFailureException
 from urllib3.exceptions import MaxRetryError
 
 
