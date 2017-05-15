@@ -1,8 +1,7 @@
-from django.conf.urls import patterns, url, include
+from django.conf.urls import url
 from libguide.views import LibGuideView
 
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(r'^$', LibGuideView.as_view()),
-)
+]
