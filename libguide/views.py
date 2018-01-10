@@ -8,17 +8,15 @@ class LibGuideView(BLTILaunchView):
     template_name = 'libguide/libguide.html'
 
     def get_context_data(self, **kwargs):
-        blti_data = kwargs['blti_params']
+        if self.blti.course_sis_id:
+            course_sis_id = self.blti.course_sis_id
+        else:
+            course_sis_id = 'course_%s' % self.blti.canvas_course_id
 
-        canvas_login_id = blti_data.get('custom_canvas_user_login_id')
-        canvas_course_id = blti_data.get('custom_canvas_course_id')
-        sis_course_id = blti_data.get('lis_course_offering_sourcedid',
-                                      'course_%s' % canvas_course_id)
-        subaccount_id = blti_data.get('custom_canvas_account_sis_id', '')
-        campus = campus_from_subaccount(subaccount_id)
+        campus = campus_from_subaccount(self.blti.account_sis_id)
 
         try:
-            subject_guide = get_subject_guide(sis_course_id, campus)
+            subject_guide = get_subject_guide(course_sis_id, campus)
             return {'campus': campus, 'subject_guide': subject_guide}
 
         except (MaxRetryError, DataFailureException) as err:
