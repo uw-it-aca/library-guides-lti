@@ -11,7 +11,7 @@ Installation
 Install grading-standard-lti in your project.
 
     $ cd [project]
-    $ pip install -e git+https://github.com/uw-it-aca/library-guides-lti/#egg=libguide
+    $ pip install UW-Library-Guides-LTI
 
 Project settings.py
 ------------------
