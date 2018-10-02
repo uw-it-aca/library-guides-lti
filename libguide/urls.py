@@ -1,7 +1,6 @@
-from django.conf.urls import url
+from django.urls import re_path
 from libguide.views import LibGuideView
 
-
 urlpatterns = [
-    url(r'^$', LibGuideView.as_view()),
+    re_path(r'^$', LibGuideView.as_view()),
 ]
