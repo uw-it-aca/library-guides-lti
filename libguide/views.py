@@ -11,7 +11,7 @@ class LibGuideView(BLTILaunchView):
         if self.blti.course_sis_id:
             course_sis_id = self.blti.course_sis_id
         else:
-            course_sis_id = 'course_%s' % self.blti.canvas_course_id
+            course_sis_id = 'course_{}'.format(self.blti.canvas_course_id)
 
         campus = campus_from_subaccount(self.blti.account_sis_id)
 
@@ -21,5 +21,5 @@ class LibGuideView(BLTILaunchView):
 
         except (MaxRetryError, DataFailureException) as err:
             return {'error': (
-                'UW Libraries Subject Guides are not available: %s' % (
+                'UW Libraries Subject Guides are not available: {}'.format(
                     getattr(err, 'msg', 'Service not available')))}
