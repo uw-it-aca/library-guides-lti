@@ -20,9 +20,11 @@ setup(
     packages=['libguide'],
     include_package_data=True,
     install_requires = [
-        'Django>=2.1',
-        'django-blti>=2.0',
+        'Django>=2.1,<2.2',
+        'django-blti>=2.1.2',
+        'UW-RestClients-Core>=1.1.1,<2.0',
         'UW-RestClients-Libraries>=1.0,<2.0',
+        'UW-RestClients-Canvas>=1.0.9,<2.0',
     ],
     license='Apache License, Version 2.0',
     description=(

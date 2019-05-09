@@ -1,14 +1,14 @@
 from uw_libraries.subject_guides import (
     get_default_subject_guide, get_subject_guide_for_canvas_course_sis_id)
+from uw_canvas.models import CanvasCourse
 from restclients_core.exceptions import DataFailureException
-from sis_provisioner.dao.course import valid_academic_course_sis_id
-from sis_provisioner.exceptions import CoursePolicyException
 
 
 def get_subject_guide(sis_course_id, campus):
-    try:
-        valid_academic_course_sis_id(sis_course_id)
+    if not CanvasCourse(sis_course_id=sis_course_id).is_academic_sis_id():
+        return get_default_subject_guide(campus=campus)
 
+    try:
         subject_guide = get_subject_guide_for_canvas_course_sis_id(
             sis_course_id)
 
@@ -19,7 +19,7 @@ def get_subject_guide(sis_course_id, campus):
 
         return subject_guide
 
-    except (CoursePolicyException, DataFailureException):
+    except DataFailureException:
         return get_default_subject_guide(campus=campus)
 
 
