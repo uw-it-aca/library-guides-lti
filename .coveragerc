@@ -1,0 +1,8 @@
+[run]
+source = library-guides-lti
+parallel = True
+
+[paths]
+source =
+  libguide/
+  /app/libguide/

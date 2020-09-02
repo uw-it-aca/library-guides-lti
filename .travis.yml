@@ -1,27 +1,41 @@
-sudo: false
+sudo: required
+
 language: python
 python:
 - '3.6'
+
+services:
+- docker
+- memcached
+
+os:
+- linux
+
+env:
+  global:
+  - RELEASE_NAME="libguide"
+  - DJANGO_APP="libguide"
+  - COMMIT_HASH="$(git rev-parse --short=7 HEAD)"
+  - IMAGE_TAG="${RELEASE_NAME}:${COMMIT_HASH}"
+  - DEPLOY_SCRIPT_BASE=https://raw.githubusercontent.com/uw-it-aca/gcp-app-deploy/master
+
+install:
+- docker build --target app-container -t "$IMAGE_TAG" .
+- docker build -t "${IMAGE_TAG}-test" .
+
 before_script:
-- pip install -e .
 - pip install coverage
 - pip install coveralls
-- pip install pycodestyle
-- cp travis-ci/manage.py manage.py
+
 script:
-- pycodestyle libguide/
-- coverage run --source=libguide/ manage.py test libguide
+- docker run -u root -it -v /tmp:/coverage -e DJANGO_APP="$DJANGO_APP" -e "ENV=localdev" -e "AUTH=BLTI_DEV" "${IMAGE_TAG}-test" bash -c ". ./travis-ci/test.sh"
+
 after_success:
+- cp /tmp/.coverage.* .
+- coverage combine
 - coveralls
-before_deploy:
-- find libguide/ -name \*.pyc -exec rm {} \;
-- echo $TRAVIS_TAG > libguide/VERSION
-deploy:
-  provider: pypi
-  user: uw-it-aca
-  skip_cleanup: true
-  password:
-    secure: bHyGXInUT6eMuhrrrjBvgArWkrPFUQgDPVNEr7MMPaHACmi3MKFAXZqAuXbVemF2vf9+FB6MYLEqIOCfE5CUtkkIfXRzEvkCu2HjiOrAVAKqx9R0dqh5sS5WL2w3ESO8tZNN5H1sSrdzYDRjVPl0Nh0P25GSQmG2gJuitNI1fE1AiE/7l6uJVMNEKWWe8Mei9KIYhyEh22tUT74zKtPlR9UjeaFOmu30icWN89vQjzpiM1F8LcvGw+HzKfC3AKemFazY83u0uG/2OV6zvrLL8MunSb6TI07MV1+PFXGKltI8UKpVWGdH8vlQcA0LpZJcFeRwfoFniu6Q0PB9/LIhaXk59D/gOv6J/r7rru+PxNOJOaCCM7pOU/FsrrZnlLnQla+M2LN6kLQRIWfpd5xoeS7jHtA8P8oB7l3vZWCLO+BTzvvGzoDzJe5OP4/0TmZcfz74C3r0Myb32DQq0FTBgndu0PZ6VlMjfmWsEpIjjqcTaDVj4fdww4A49K/qaDMXGY13YWk2QjqjlVdTxohGuqvD1ZbK3JhlW2iiE+RC/6K5NR4/3DJRdVJRKFkawy5OOWI8scd34KGI42zeCjTgCkNiVdy4kSIQxLqvl1FBEXQwyisyTcwAM3mwtp2E5BlUBtjzLMJkOQnv2St94EHvNXXYppJdS1zAPt7Dhv6N9Qo=
-  on:
-    tags: true
-    python: '3.6'
+
+cache:
+  directories:
+  - "$HOME/helm"
+  - "$HOME/kubeval"
