@@ -22,10 +22,10 @@ readiness:
   enabled: true
 database:
   engine: null
-repo: library-guides
+repo: libguides
 instance: test
 image:
-  repository: registry.hub.docker.com/acait/library-guides
+  repository: registry.hub.docker.com/acait/libguides
   tag: IMAGE_TAG
 memcached:
   enabled: true
