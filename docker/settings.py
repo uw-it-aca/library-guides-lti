@@ -1,0 +1,25 @@
+from .base_settings import *
+
+INSTALLED_APPS += [
+    'libguide.apps.LibraryGuideConfig',
+    'compressor',
+]
+
+COMPRESS_ROOT = '/static/'
+COMPRESS_PRECOMPILERS = (('text/less', 'lessc {infile} {outfile}'),)
+COMPRESS_OFFLINE = True
+STATICFILES_FINDERS += ('compressor.finders.CompressorFinder',)
+
+if os.getenv('ENV', 'localdev') == 'localdev':
+    DEBUG = True
+    RESTCLIENTS_DAO_CACHE_CLASS = None
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        }
+    }
+else:
+    DEBUG = False
+    RESTCLIENTS_DAO_CACHE_CLASS = 'libguide.cache.LibCurricsCache'
+
+LIBCURRICS_CACHE_EXPIRES = 60 * 60 * 4
