@@ -5,10 +5,10 @@ INSTALLED_APPS += [
     'compressor',
 ]
 
-COMPRESS_ROOT = "/static/"
-COMPRESS_PRECOMPILERS = (("text/less", "lessc {infile} {outfile}"),)
+COMPRESS_ROOT = '/static/'
+COMPRESS_PRECOMPILERS = (('text/less', 'lessc {infile} {outfile}'),)
 COMPRESS_OFFLINE = True
-STATICFILES_FINDERS += ("compressor.finders.CompressorFinder",)
+STATICFILES_FINDERS += ('compressor.finders.CompressorFinder',)
 
 if os.getenv('ENV', 'localdev') == 'localdev':
     DEBUG = True

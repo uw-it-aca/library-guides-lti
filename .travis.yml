@@ -13,7 +13,7 @@ os:
 
 env:
   global:
-  - RELEASE_NAME="libguide"
+  - RELEASE_NAME="libguides"
   - DJANGO_APP="libguide"
   - COMMIT_HASH="$(git rev-parse --short=7 HEAD)"
   - IMAGE_TAG="${RELEASE_NAME}:${COMMIT_HASH}"
@@ -34,6 +34,23 @@ after_success:
 - cp /tmp/.coverage.* .
 - coverage combine
 - coveralls
+- |
+    if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+      case "$TRAVIS_BRANCH" in
+        "master")
+          export APP_INSTANCE="prod";
+          ;;
+        "develop")
+          export APP_INSTANCE="test";
+          ;;
+        *)
+          unset APP_INSTANCE
+          ;;
+      esac
+      if [[ "$APP_INSTANCE" ]]; then
+        curl -Ls ${DEPLOY_SCRIPT_BASE}/travis-ci/deploy.sh | bash;
+      fi
+    fi
 
 cache:
   directories:
