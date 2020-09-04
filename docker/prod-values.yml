@@ -1,0 +1,93 @@
+ingress:
+  enabled: true
+  tls:
+    libguides:
+      secretName: libguides.canvas.uw.edu-ingress-cert
+      hosts:
+        - libguides.canvas.uw.edu
+  hosts:
+    libguides:
+      host: libguides.canvas.uw.edu
+      paths:
+        - "/"
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+lifecycle:
+  enabled: true
+  preStop:
+    enabled: true
+affinity:
+   podsSpanNodes: true
+readiness:
+  enabled: true
+database:
+  engine: null
+repo: libguides
+instance: prod
+image:
+  repository: registry.hub.docker.com/acait/libguides
+  tag: IMAGE_TAG
+memcached:
+  enabled: true
+  replicaCount: 1
+  updateStrategy:
+    type: RollingUpdate
+certs:
+  mounted: true
+  certPath: /certs/libguides.canvas.uw.edu-uwca.cert
+  keyPath: /certs/libguides.canvas.uw.edu-uwca.key
+  secretName: libguides.canvas.uw.edu-uwca-certs
+environmentVariables:
+  - name: CLUSTER_CNAME
+    value: libguides.canvas.uw.edu
+  - name: AUTH
+    value: BLTI
+  - name: ENV
+    value: prod
+  - name: SESSION_BACKEND
+    value: MEMCACHED
+  - name: LIBCURRICS_ENV
+    value: PROD
+  - name: LIBCURRICS_TIMEOUT
+    value: "5"
+externalSecrets:
+  enabled: true
+  secrets:
+    - name: libguides.canvas.uw.edu-secrets
+      externalKey: axdd/kv/data/libguides/prod/secrets
+      data:
+        - name: django-secret
+          property: django-secret
+    - name: libguides.canvas.uw.edu-canvas-secrets
+      externalKey: axdd/kv/data/libguides/shared/secrets
+      data:
+        - name: lti-consumers
+          property: lti-consumers
+        - name: blti-aes-key
+          property: blti-aes-key
+        - name: blti-aes-iv
+          property: blti-aes-iv
+    - name: libguides.canvas.uw.edu-uwca-certs
+      externalKey: axdd/kv/data/libguides/prod/uwca-certs
+      data:
+        - name: libguides.canvas.uw.edu-uwca.cert
+          property: libguides.canvas.uw.edu-uwca.cert
+        - name: libguides.canvas.uw.edu-uwca.key
+          property: libguides.canvas.uw.edu-uwca.key
+environmentVariablesSecrets:
+  django-secret:
+    name: DJANGO_SECRET
+    secretName: libguides.canvas.uw.edu-secrets
+    secretKey: django-secret
+  LTIConsumers:
+    name: LTI_CONSUMERS
+    secretName: libguides.canvas.uw.edu-canvas-secrets
+    secretKey: lti-consumers
+  BLTIAESKey:
+    name: BLTI_AES_KEY
+    secretName: libguides.canvas.uw.edu-canvas-secrets
+    secretKey: blti-aes-key
+  BLTIAESIV:
+    name: BLTI_AES_IV
+    secretName: libguides.canvas.uw.edu-canvas-secrets
+    secretKey: blti-aes-iv
