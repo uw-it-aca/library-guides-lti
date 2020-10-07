@@ -23,7 +23,7 @@ setup(
         'Django>=2.1,<2.2',
         'django-blti>=2.2.1',
         'django-compressor',
-        'python-memcached',
+        'uw-memcached-clients>=0.1.0',
         'UW-RestClients-Core>=1.3.3,<2.0',
         'UW-RestClients-Libraries>=1.0,<2.0',
         'UW-RestClients-Canvas>=1.1.9,<2.0',
