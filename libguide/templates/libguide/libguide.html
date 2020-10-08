@@ -50,6 +50,19 @@
             {{ library.description }}
         </div>
     </li>
+<!-- Temporary COVID-19 / remote support inclusions -->
+    <li>
+        <div>
+            UW Libraries COVID-19 updates on the <a href="https://www.lib.washington.edu/coronavirus" target="_blank">Seattle</a>, <a href="https://library.uwb.edu/covidupdates" target="_blank">Bothell</a> and <a href="https://www.tacoma.uw.edu/library/covid-19-updates" target="_blank">Tacoma</a> campuses.<br />
+            Learn about the latest news related to your campus library including the availability of services, resources and buildings. 
+        </div>
+    </li>
+    <li>
+        <div>
+            <a href="https://uw.libcal.com/appointments/uwlib" target="_blank">Schedule an appointment</a><br />
+            UW students can get research assistance with course- and degree-related projects and assignments. 
+        </div>
+    </li>   
     {% endfor %}
 </ul>
 
@@ -66,7 +79,7 @@
 
     {% if subject_guide.faq_url %}
     <div class="span4">
-        <h3><a href="{{ subject_guide.faq_url }}" target="_blank">"How Do I..." Tutorials</a></h3>
+        <h3><a href="{{ subject_guide.faq_url }}" target="_blank">Libraries Frequently Asked Questions</a></h3>
         <p>{{ subject_guide.faq_text }}</p>
     </div>
     {% endif %}
