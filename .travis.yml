@@ -1,47 +1,37 @@
 sudo: required
-
 language: python
 python:
 - '3.6'
-
 services:
 - docker
-- memcached
-
 env:
   global:
   - RELEASE_NAME="libguides"
   - DJANGO_APP="libguide"
   - COMMIT_HASH="$(git rev-parse --short=7 HEAD)"
   - IMAGE_TAG="${RELEASE_NAME}:${COMMIT_HASH}"
-  - DEPLOY_SCRIPT_BASE=https://raw.githubusercontent.com/uw-it-aca/gcp-app-deploy/master
-  - secure: U8k9vRWERI2UnwP2QAI4h3dJhC2ybueieQHldPZ5FdVt3uOycTyYC+XoyX84YgTrAIEsdZtsiHbcbahlBEs0fV6e2KXDs8STRN+4cep+J9CIDDtCiQZuAQIVKsmEU6dbwzl+rNa7eX7eMBUk7+Bt+WaB/KclBquPqwLDkrTe2FLuH3zlx60Hel4PmWGJ9/AQT3S0lpZtYaLUEWmd5vl3WwF+IrPMLZDj9F/M1y8AHsoa9rapGTFM8PX1Y7BK5iA8ihcxgg+kugFr9yjcypmKzinWLYwHgTs9MCDI/+HqHEHPz6M6m6SHg4N33TLEbxRimTcgMcvlQOnhq5mif89RL653g4O7HnmiWbbHBQxa6/kMQyymNx/vcDLlJiMZ7+wWC+JBMYEVJFoKkzuebqcF9FPbf4vZTyb1iOIwhTapjo0dJ4mz4IXAOcrOKRYrge7ciIy2DUYLT3hYFbzY3QtBy/FDMSdkyWAlFDsQ9U0g2CJKt6+iN9L9vDjEtPVREci+Ab6ZaLlVW5DoLojUUq64oyGqXPXcoIQ1C/8bpaxVV7/IbRv1t/sqJoid3M98YsprOjAitHAdgFxSiDAuWPoU7XHGcvn0zbs7p2f/wKmVoJpPGKxGSSVp3uhN2Cof3EqcK6bTcWpGwpE9b6jpBZGko5J59Da8nGHloKSW//FOmlE=
-  - secure: HXjWdZXYU9l3wlICEI4oKcz76XLwItYYOiC4GxARtZh3lJiBWBqcOUfwzFsykA4ox3FPlTGnFlvXO3jjccxfxobEDPBiUx42MH2uU4BCtKnaikffBwFMa0X58UvrD2GohAq+LVftw+roMCrz0MF9jyyYrd6QFZxYzkJ9spcEJzkvD6GEErcOEl28Oh8qQbRh8ga00/XbvHV76tmThcm8rJWRDTIN6R97Dx4ABQHaEZQcnedxAAr3rpOVG/rGIgZ8+m/f+Yyq2+fFQs8/3iOBuIq5654hrByUp+HRTrLliWe52cFojQDyerZSs+nc6E1tuURAntTUIXeThSSzgyDyMjj6SA6/iAPppnHCkYxbTRtjuRSttxgoXEUpjGQrPBl5Pq0hiuOyNtpFULtGmXH+cx0d7HLo0ejf0Fedo2Sq66xFAaYXPVWqOcR1q6efK1+zJ85FMcbwlArdOk0e7sVDSlzNi6hywCMWaTGUAfKHk9rlUvn9X/n9UQfrsR/Zgilb5BsEwTt3J78QaMMw5xVguQ80arIGWMBwFfX6dvHp9J4piVVZXXfUZlCWgH/BwFoewDvbSX3NR9XdTH9G8gghKQiaQWAHd/XqczpyDyjz8HKwP+ok8xzs8aE53MYDLD/p0hvdGh6CSL/TuxqEj64WIHEuGNcNyvErOLGeJ1tJoTE=
-  - secure: KSVDfpkgozF3SsxIY9IjsTjGwLTbWxQHfucS2QEpD4nxNVm2B5I8a7DHw+TGh+WDXsREReuS30lgfdBM8ngV4hM4QMb+hhgskFo5yQd0FmgKT/F6JSdl5D/B+jD+In71loyWKQ8pUhSCvKfAVrct9D2P7lwsvnge+VfmAO1t8eW9i2clLlOI34GpX+kHvMpBxzvHzyRzjMHlFPGAkXl7a4paDaAi2NnOsd3aCU3TeasKSiGyku588R2TRk7lz/OpUkhFx30X+WxEXbuRWg3BU4kubOJm1O00zC8DqadTPj0zivQnTeLo4K9P4GQxFCqjAXU8i5A30maOLEkwwyC/RALLrKWfBeRl4bKzda+a54vvfue4apvM3qHb/CMotElqVWMBnMGvLzSx5lZpXwABYL/J91HI3rquDOF7UfcopIj4DZpVeJu0nn7ErsRE7mMmMQX+qdv0RsU3GCm32+Wt1eBO2FLkanHs32BHhPIKx9PKQNTkgcetNz0kZ3JdfZTSqnM5HMraTehekp0JbVQJlgHbfhWzaoOVevxNq0wrDleTEzjVakhut+LJGz+B7Kr/nHoxJX14DczDsON/Uwin6GJOr8Q13KtdHHS5NwUrN76g7C/AClOxKHVsU+vnYTAKlLemOzYLuRYT6A0P0gISfGIMwALuzByqUi+Xz1ZIMv8=
-
+  - DEPLOY_SCRIPT=https://raw.githubusercontent.com/uw-it-aca/gcp-app-deploy/master/travis-ci/deploy.sh
+  - GCP_JSON_KEY=gcp.json
+  - secure: cKT1AlewNLZvfbwP6hZU86zyBQd1qHK1I+36EArDpob3cLLvEY0KNN8OZNHYYOMBc4Cn0tL1CXMi9h7uQrtN3Mq1bKoObFPUMSmbgnT3ow6gbaetbortNsarn2nMWyuH8QXo8PeSA4g+YsQNEfD1jUmWziHs8xlinwkUoRzyPTJgHDxU7d1HRCsUIdq79H9N9LlUMw7ZF0Nmbu6HQq435qDbEMgskmvLyagYQrfEDgQ0FsPJDJRZRZ35fCLJquGkIazhDvq8M/CVm0qbRP2weSHSKrs8udm+ohbFxt99AHxr62fEoQO7D/UyEtaB1rnWUYboCsD0mhbrUTxK8wjF2F9K7xaFuAPx68BtMCc/q/1VizzT7DvBigxFjBYXjCOVWtOOvi1PieAHIAG5u7sPBSMXqfU9R0oWnzbiUhIvccuUDM6RAlybZqNLVm7Al/EiKgPhD1NxuQo68sDClGhdDmC3Ly+XeU+vNRyUZNhnNbSOYOti23qMOb9l0ZHwaWypjlsASMBc4yjUxIB1GhdXO1yeeXsRi/yLyazVBJK5Y+OXB9IG0SUCStYFczHw5XAE3JYNIdKk+emSs+FPlOBWOW3l7dhBKN/+JtTdDPFBh+YukD+QWN+zPwS9XSxifghIb5KMmNOebAtLiC37jhC/0yBvEk3mAHoNxQjGzNhEb7E=
 install:
 - docker build --target app-container -t "$IMAGE_TAG" .
 - docker build -t app-test-container .
-
 before_script:
 - pip install coverage
 - pip install coveralls
-
 script:
-- docker run -u root -it -v /tmp:/coverage -e DJANGO_APP="$DJANGO_APP" -e "ENV=localdev" -e "AUTH=BLTI_DEV" app-test-container bash -c ". ./travis-ci/test.sh"
-
+- docker run -u root -it -v /tmp:/coverage -e DJANGO_APP="$DJANGO_APP" -e "ENV=localdev"
+  -e "AUTH=BLTI_DEV" app-test-container bash -c ". ./travis-ci/test.sh"
 after_success:
 - cp /tmp/.coverage.* .
 - coverage combine
 - coveralls
-
+- openssl aes-256-cbc -K $encrypted_0e718fcdeb51_key -iv $encrypted_0e718fcdeb51_iv
+  -in gcp.json.enc -out gcp.json -d
 deploy:
-  - provider: script
-    skip_cleanup: true
-    script: >-
-      curl -Ls ${DEPLOY_SCRIPT_BASE}/travis-ci/deploy.sh | bash
-    on:
-      all_branches: true
-      condition: >-
-        $TRAVIS_PULL_REQUEST == "false" &&
-        $TRAVIS_BRANCH =~ ^(master|develop)$
+- provider: script
+  skip_cleanup: true
+  script: curl -Ls "$DEPLOY_SCRIPT" | bash
+  on:
+    all_branches: true
+    condition: $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_BRANCH =~ ^(master|develop)$
