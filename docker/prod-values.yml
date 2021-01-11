@@ -37,7 +37,7 @@ database:
 repo: libguides
 instance: prod
 image:
-  repository: registry.hub.docker.com/acait/libguides
+  repository: gcr.io/uwit-mci-axdd/libguides
   tag: IMAGE_TAG
 memcached:
   enabled: true
@@ -52,6 +52,8 @@ certs:
 environmentVariables:
   - name: CLUSTER_CNAME
     value: libguides.canvas.uw.edu
+  - name: WEBSERVER
+    value: nginx
   - name: AUTH
     value: BLTI
   - name: ENV
