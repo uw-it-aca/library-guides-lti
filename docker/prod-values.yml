@@ -37,7 +37,7 @@ database:
 repo: libguides
 instance: prod
 image:
-  repository: registry.hub.docker.com/acait/libguides
+  repository: gcr.io/uwit-mci-axdd/libguides
   tag: IMAGE_TAG
 memcached:
   enabled: true
