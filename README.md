@@ -5,16 +5,6 @@
 
 A Django LTI Application for displaying Library Subject Guides in a Canvas course
 
-Installation
-------------
-
-**Project directory**
-
-Install grading-standard-lti in your project.
-
-    $ cd [project]
-    $ pip install UW-Library-Guides-LTI
-
 Project settings.py
 ------------------
 
