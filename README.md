@@ -1,5 +1,7 @@
-Library Subject Guides LTI App
-===========================
+# Library Subject Guides LTI App
+
+[![Build Status](https://github.com/uw-it-aca/library-guides-lti/workflows/tests/badge.svg?branch=master)](https://github.com/uw-it-aca/library-guides-lti/actions)
+[![Coverage Status](https://coveralls.io/repos/github/uw-it-aca/library-guides-lti/badge.svg?branch=master)](https://coveralls.io/github/uw-it-aca/library-guides-lti?branch=master)
 
 A Django LTI Application for displaying Library Subject Guides in a Canvas course
 
