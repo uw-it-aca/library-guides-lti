@@ -1,3 +1,6 @@
+# Copyright 2021 UW-IT, University of Washington
+# SPDX-License-Identifier: Apache-2.0
+
 from blti.views import BLTILaunchView
 from libguide.dao.library import campus_from_subaccount, get_subject_guide
 from restclients_core.exceptions import DataFailureException
