@@ -1,3 +1,6 @@
+# Copyright 2021 UW-IT, University of Washington
+# SPDX-License-Identifier: Apache-2.0
+
 from django.test import TestCase
 from libguide.dao.library import campus_from_subaccount, get_subject_guide
 from uw_libraries.util import fdao_subject_guide_override
