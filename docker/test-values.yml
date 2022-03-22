@@ -20,12 +20,14 @@ affinity:
    podsSpanNodes: true
 readiness:
   enabled: true
+securityPolicy:
+  enabled: true
 database:
   engine: null
 repo: libguides
 instance: test
 image:
-  repository: registry.hub.docker.com/acait/libguides
+  repository: gcr.io/uwit-mci-axdd/libguides
   tag: IMAGE_TAG
 memcached:
   enabled: true
