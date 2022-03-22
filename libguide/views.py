@@ -13,9 +13,9 @@ class LibGuideView(BLTILaunchView):
     template_name = 'libguide/libguide.html'
 
     def post(self, request, *args, **kwargs):
-        account_id = self.blti.canvas_account_id
-        if account_id in getattr(settings, 'LIBRARY_REDIRECTS', {}):
-            return HttpResponseRedirect(settings.LIBRARY_REDIRECTS[account_id])
+        for sis_id, url in getattr(settings, 'LIBRARY_REDIRECTS', []):
+            if self.blti.account_sis_id.startswith(sis_id):
+                return HttpResponseRedirect(url)
 
         context = self.get_context_data(**kwargs)
         return self.render_to_response(context)
