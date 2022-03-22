@@ -18,7 +18,7 @@ else:
 
 LIBCURRICS_CACHE_EXPIRES = 60 * 60 * 4
 
-LIBRARY_REDIRECTS = {
-    # canvas_account_id: redirect_url
-    '102361': 'https://liblawuw.libguides.com/er.php?b=c',
-}
+LIBRARY_REDIRECTS = [
+    # (account_sis_id, redirect_url)
+    ('uwcourse:seattle:law', 'https://liblawuw.libguides.com/er.php?b=c'),
+]
