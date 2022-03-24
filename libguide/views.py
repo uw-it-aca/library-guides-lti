@@ -1,6 +1,9 @@
-# Copyright 2021 UW-IT, University of Washington
+# Copyright 2022 UW-IT, University of Washington
 # SPDX-License-Identifier: Apache-2.0
 
+
+from django.conf import settings
+from django.http import HttpResponseRedirect
 from blti.views import BLTILaunchView
 from libguide.dao.library import campus_from_subaccount, get_subject_guide
 from restclients_core.exceptions import DataFailureException
@@ -8,6 +11,14 @@ from restclients_core.exceptions import DataFailureException
 
 class LibGuideView(BLTILaunchView):
     template_name = 'libguide/libguide.html'
+
+    def post(self, request, *args, **kwargs):
+        for sis_id, url in getattr(settings, 'LIBRARY_REDIRECTS', []):
+            if self.blti.account_sis_id.startswith(sis_id):
+                return HttpResponseRedirect(url)
+
+        context = self.get_context_data(**kwargs)
+        return self.render_to_response(context)
 
     def get_context_data(self, **kwargs):
         if self.blti.course_sis_id:
