@@ -36,9 +36,9 @@ memcached:
     type: RollingUpdate
 certs:
   mounted: true
-  certPath: /certs/test-libguides.canvas.uw.edu-uwca.cert
-  keyPath: /certs/test-libguides.canvas.uw.edu-uwca.key
-  secretName: test-libguides.canvas.uw.edu-uwca-certs
+  certPath: /certs/test-libguides.canvas.uw.edu-ic.cert
+  keyPath: /certs/test-libguides.canvas.uw.edu-ic.key
+  secretName: test-libguides.canvas.uw.edu-ic-certs
 environmentVariables:
   - name: CLUSTER_CNAME
     value: test-libguides.canvas.uw.edu
@@ -76,6 +76,13 @@ externalSecrets:
           property: test-libguides.canvas.uw.edu-uwca.cert
         - name: test-libguides.canvas.uw.edu-uwca.key
           property: test-libguides.canvas.uw.edu-uwca.key
+    - name: test-libguides.canvas.uw.edu-ic-certs
+      externalKey: axdd/kv/data/libguides/test/ic-certs
+      data:
+        - name: test-libguides.canvas.uw.edu-ic.cert
+          property: test-libguides.canvas.uw.edu-ic.cert
+        - name: test-libguides.canvas.uw.edu-ic.key
+          property: test-libguides.canvas.uw.edu-ic.key
 environmentVariablesSecrets:
   django-secret:
     name: DJANGO_SECRET
