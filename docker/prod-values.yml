@@ -45,9 +45,9 @@ memcached:
 
 certs:
   mounted: true
-  certPath: /certs/libguides.canvas.uw.edu-uwca.cert
-  keyPath: /certs/libguides.canvas.uw.edu-uwca.key
-  secretName: libguides.canvas.uw.edu-uwca-certs
+  certPath: /certs/libguides.canvas.uw.edu-ic.cert
+  keyPath: /certs/libguides.canvas.uw.edu-ic.key
+  secretName: libguides.canvas.uw.edu-ic-certs
 
 environmentVariables:
   - name: CLUSTER_CNAME
@@ -80,13 +80,13 @@ externalSecrets:
           property: blti-aes-key
         - name: blti-aes-iv
           property: blti-aes-iv
-    - name: libguides.canvas.uw.edu-uwca-certs
-      externalKey: axdd/kv/data/libguides/prod/uwca-certs
+    - name: libguides.canvas.uw.edu-ic-certs
+      externalKey: axdd/kv/data/libguides/prod/ic-certs
       data:
-        - name: libguides.canvas.uw.edu-uwca.cert
-          property: libguides.canvas.uw.edu-uwca.cert
-        - name: libguides.canvas.uw.edu-uwca.key
-          property: libguides.canvas.uw.edu-uwca.key
+        - name: libguides.canvas.uw.edu-ic.cert
+          property: libguides.canvas.uw.edu-ic.cert
+        - name: libguides.canvas.uw.edu-ic.key
+          property: libguides.canvas.uw.edu-ic.key
 
 environmentVariablesSecrets:
   django-secret:
