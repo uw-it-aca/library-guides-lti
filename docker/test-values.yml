@@ -69,13 +69,6 @@ externalSecrets:
           property: blti-aes-key
         - name: blti-aes-iv
           property: blti-aes-iv
-    - name: test-libguides.canvas.uw.edu-uwca-certs
-      externalKey: axdd/kv/data/libguides/test/uwca-certs
-      data:
-        - name: test-libguides.canvas.uw.edu-uwca.cert
-          property: test-libguides.canvas.uw.edu-uwca.cert
-        - name: test-libguides.canvas.uw.edu-uwca.key
-          property: test-libguides.canvas.uw.edu-uwca.key
     - name: test-libguides.canvas.uw.edu-ic-certs
       externalKey: axdd/kv/data/libguides/test/ic-certs
       data:
