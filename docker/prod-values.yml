@@ -33,9 +33,6 @@ database:
 
 repo: libguides
 instance: prod
-image:
-  repository: gcr.io/uwit-mci-axdd/libguides
-  tag: IMAGE_TAG
 
 memcached:
   enabled: true
@@ -67,12 +64,12 @@ externalSecrets:
   enabled: true
   secrets:
     - name: libguides.canvas.uw.edu-secrets
-      externalKey: axdd/kv/data/libguides/prod/secrets
+      externalKey: libguides/prod/secrets
       data:
         - name: django-secret
           property: django-secret
     - name: libguides.canvas.uw.edu-canvas-secrets
-      externalKey: axdd/kv/data/libguides/shared/secrets
+      externalKey: libguides/shared/secrets
       data:
         - name: lti-consumers
           property: lti-consumers
@@ -81,7 +78,7 @@ externalSecrets:
         - name: blti-aes-iv
           property: blti-aes-iv
     - name: libguides.canvas.uw.edu-ic-certs
-      externalKey: axdd/kv/data/libguides/prod/ic-certs
+      externalKey: libguides/prod/ic-certs
       data:
         - name: libguides.canvas.uw.edu-ic.cert
           property: libguides.canvas.uw.edu-ic.cert
