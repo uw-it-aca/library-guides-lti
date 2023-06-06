@@ -1,6 +1,5 @@
-# Copyright 2022 UW-IT, University of Washington
+# Copyright 2023 UW-IT, University of Washington
 # SPDX-License-Identifier: Apache-2.0
-
 
 from uw_libraries.subject_guides import (
     get_default_subject_guide, get_subject_guide_for_canvas_course_sis_id)

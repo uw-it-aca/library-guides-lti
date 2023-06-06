@@ -25,7 +25,7 @@ setup(
         'uw-memcached-clients~=1.0',
         'UW-RestClients-Core~=1.3',
         'UW-RestClients-Libraries~=1.0',
-        'UW-RestClients-Canvas~=1.1',
+        'UW-RestClients-Canvas~=1.2',
     ],
     license='Apache License, Version 2.0',
     description=(
