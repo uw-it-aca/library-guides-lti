@@ -32,7 +32,7 @@ setup(
         'An LTI app for displaying UW Library Subject Guides in Canvas'),
     long_description=README,
     url='https://github.com/uw-it-aca/library-guides-lti',
-    author = "UW-IT AXDD",
+    author = "UW-IT T&LS",
     author_email = "aca-it@uw.edu",
     classifiers=[
         'Environment :: Web Environment',
