@@ -7,6 +7,7 @@ services:
       PORT: 8000
       AUTH: BLTI_DEV
       LTI_DEVELOP_APP: libguide
+      LTI_CONFIG_DIRECTORY: MOCK
     restart: always
     container_name: app-libguide
     build:
