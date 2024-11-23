@@ -49,6 +49,8 @@ environmentVariables:
     value: PROD
   - name: LIBCURRICS_TIMEOUT
     value: "5"
+  - name: LTI_CONFIG_DIRECTORY
+    value: /lti/config
 externalSecrets:
   enabled: true
   secrets:
@@ -57,6 +59,13 @@ externalSecrets:
       data:
         - name: django-secret
           property: django-secret
+    - name: test-libguides.canvas.uw.edu-lti-keys
+      externalKey: libguides/test/lti-keys
+      data:
+        - name: private-key-1.key
+          property: private-key-1.key
+        - name: public-key-1.key
+          property: public-key-1.key
     - name: test-libguides.canvas.uw.edu-canvas-secrets
       externalKey: libguides/shared/secrets
       data:
@@ -90,3 +99,34 @@ environmentVariablesSecrets:
     name: BLTI_AES_IV
     secretName: test-libguides.canvas.uw.edu-canvas-secrets
     secretKey: blti-aes-iv
+
+mountedSecrets:
+  enabled: true
+  mountPath: /lti/keys
+  secretName: test-libguides.canvas.uw.edu-lti-keys
+
+podVolumes:
+  lti-tool-config:
+    volume:
+      configMap:
+        name: lti-tool-config
+    mount:
+      mountPath: /lti/config
+    containers: [base]
+
+configmaps:
+  lti-tool-config:
+    tool.json: |
+      {
+        "https://canvas.test.instructure.com": [{
+          "default": true,
+          "client_id": "100000000000839",
+          "auth_login_url": "https://sso.canvaslms.com/api/lti/authorize_redirect",
+          "auth_token_url": "https://sso.canvaslms.com/login/oauth2/token",
+          "key_set": null,
+          "key_set_url": "https://sso.test.canvaslms.com/api/lti/security/jwks",
+          "private_key_file": "/lti/keys/private-key-1.key",
+          "public_key_file": "/lti/keys/public-key-1.key",
+          "deployment_ids": ["202034:c61ffdb94ad935f3abe694d5f29862298b991894"]
+        }]
+      }
