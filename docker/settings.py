@@ -1,7 +1,7 @@
 from .base_settings import *
 
 INSTALLED_APPS += [
-    'libguide.apps.LibraryGuideConfig',
+    'libguide',
     'compressor',
 ]
 
