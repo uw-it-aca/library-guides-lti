@@ -26,6 +26,8 @@ database:
   engine: null
 repo: libguides
 instance: test
+namespace:
+  enabled: true
 memcached:
   enabled: true
   replicaCount: 1
