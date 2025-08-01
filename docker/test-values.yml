@@ -26,6 +26,8 @@ database:
   engine: null
 repo: libguides
 instance: test
+namespace:
+  enabled: true
 memcached:
   enabled: true
   replicaCount: 1
@@ -129,6 +131,7 @@ configmaps:
           "public_key_file": "/lti/keys/public-key-1.key",
           "deployment_ids": ["210510:3bc8ed0c9ea4aa8abb5ce6bf4693e1fd0e2c9d67",
                              "208223:c61ffdb94ad935f3abe694d5f29862298b991894",
-                             "208227:3bc8ed0c9ea4aa8abb5ce6bf4693e1fd0e2c9d67"]
+                             "208227:3bc8ed0c9ea4aa8abb5ce6bf4693e1fd0e2c9d67",
+                             "212930:c78d46b24c785a8ad37b5bf9bdf26ceb32cc9d18"]
         }]
       }
