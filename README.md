@@ -1,7 +1,7 @@
 # Library Subject Guides LTI App
 
-[![Build Status](https://github.com/uw-it-aca/library-guides-lti/workflows/Build%2C%20Test%20and%20Deploy/badge.svg?branch=master)](https://github.com/uw-it-aca/library-guides-lti/actions)
-[![Coverage Status](https://coveralls.io/repos/github/uw-it-aca/library-guides-lti/badge.svg?branch=master)](https://coveralls.io/github/uw-it-aca/library-guides-lti?branch=master)
+[![Build Status](https://github.com/uw-it-aca/library-guides-lti/workflows/Build%2C%20Test%20and%20Deploy/badge.svg)](https://github.com/uw-it-aca/library-guides-lti/actions)
+[![Coverage Status](https://coveralls.io/repos/github/uw-it-aca/library-guides-lti/badge.svg?branch=main)](https://coveralls.io/github/uw-it-aca/library-guides-lti?branch=main)
 
 ## Description
 library-guides-lti is an LTI Tool built to display
