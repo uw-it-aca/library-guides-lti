@@ -10,17 +10,17 @@ import mock
 @fdao_subject_guide_override
 class LibraryDAOTest(TestCase):
     def test_campus_from_subaccount(self):
-        self.assertEquals(
+        self.assertEqual(
             campus_from_subaccount('uwcourse:tacoma'), 'tacoma')
-        self.assertEquals(
+        self.assertEqual(
             campus_from_subaccount('uwcourse:bothell:nursing'), 'bothell')
-        self.assertEquals(
+        self.assertEqual(
             campus_from_subaccount('uwcourse:seattle:medicine'), 'seattle')
-        self.assertEquals(
+        self.assertEqual(
             campus_from_subaccount(''), 'seattle')
-        self.assertEquals(
+        self.assertEqual(
             campus_from_subaccount(43567), 'seattle')
-        self.assertEquals(
+        self.assertEqual(
             campus_from_subaccount(None), 'seattle')
 
     @mock.patch('libguide.dao.library.get_default_subject_guide')
