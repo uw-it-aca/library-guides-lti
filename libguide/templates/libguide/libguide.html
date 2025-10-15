@@ -7,7 +7,7 @@
 <div class="canvas-UW-libguide-container">
 
 <!-- Header and help text -->
-<img src="{% static "libguide/img/libwordmark.png" %}"/>
+<h1 id="uw-libraries-header">UW Libraries</h1>
 
 {% if error %}
 <p>{{ error }}</p>
@@ -22,29 +22,29 @@
 
 <h2 id="uw_libguide_header">Library resources for {{ subject_guide.discipline|default:"your discipline" }}</h2>
 
-<ul><!-- library resources list -->
+<ul class="list-unstyled ms-3"><!-- library resources list -->
     {%if subject_guide.course_guide %}
-    <li>
+    <li class="mb-3">
         <div>
           <a href="{{ subject_guide.course_guide.guide_url }}" target="_blank">{{ subject_guide.course_guide.guide_text }}</a><br />
           Use this online course guide for help with research assignments in your specific course.
         </div>
     </li>
   {% endif %}
-    <li>
+    <li class="mb-3">
         <div>
             <a href="{{ subject_guide.guide_url }}" target="_blank">{{ subject_guide.guide_text }}</a><br />
             Get research recommendations and tips tailored to your subject area via this online guide.
         </div>
     </li>
-    <li>
+    <li class="mb-3">
         <div>
             <a href="{{ subject_guide.writing_guide_url }}" target="_blank">Citation Styles &amp; Tools</a><br />
             {{ subject_guide.writing_guide_text }}
         </div>
     </li>
     {% for library in subject_guide.libraries %}
-    <li>
+    <li class="mb-3">
         <div>
             <a href="{{ library.url }}" target="_blank">{{ library.name }}</a><br />
             {{ library.description }}
