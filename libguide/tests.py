@@ -1,10 +1,12 @@
 # Copyright 2026 UW-IT, University of Washington
 # SPDX-License-Identifier: Apache-2.0
 
+from unittest import mock
+
 from django.test import TestCase
-from libguide.dao.library import campus_from_subaccount, get_subject_guide
 from uw_libraries.util import fdao_subject_guide_override
-import mock
+
+from libguide.dao.library import campus_from_subaccount, get_subject_guide
 
 
 @fdao_subject_guide_override
@@ -25,11 +27,11 @@ class LibraryDAOTest(TestCase):
 
     @mock.patch('libguide.dao.library.get_default_subject_guide')
     def test_get_default_subject_guide(self, mock_fn):
-        r = get_subject_guide('course_12345', 'tacoma')
+        _r = get_subject_guide('course_12345', 'tacoma')
         mock_fn.assert_called_with(campus='tacoma')
 
         # 404, fails over to default guide
-        r = get_subject_guide('2015-autumn-GEN STU-201-A', 'bothell')
+        _r = get_subject_guide('2015-autumn-GEN STU-201-A', 'bothell')
         mock_fn.assert_called_with(campus='bothell')
 
     @mock.patch(
@@ -37,5 +39,5 @@ class LibraryDAOTest(TestCase):
     def test_get_subject_guide(self, mock_fn):
         sis_course_id = '2017-spring-ESS-101-A'
 
-        r = get_subject_guide(sis_course_id, 'tacoma')
+        _r = get_subject_guide(sis_course_id, 'tacoma')
         mock_fn.assert_called_with(sis_course_id)
