@@ -1,10 +1,12 @@
 # Copyright 2026 UW-IT, University of Washington
 # SPDX-License-Identifier: Apache-2.0
 
-from uw_libraries.subject_guides import (
-    get_default_subject_guide, get_subject_guide_for_canvas_course_sis_id)
-from uw_canvas.models import CanvasCourse
 from restclients_core.exceptions import DataFailureException
+from uw_canvas.models import CanvasCourse
+from uw_libraries.subject_guides import (
+    get_default_subject_guide,
+    get_subject_guide_for_canvas_course_sis_id,
+)
 
 
 def get_subject_guide(sis_course_id, campus):

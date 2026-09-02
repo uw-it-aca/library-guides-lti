@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 from django.urls import re_path
+
 from libguide.views import LibGuideView
 
 urlpatterns = [
