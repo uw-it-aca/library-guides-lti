@@ -21,6 +21,11 @@ ingress:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
 
+gateway:
+  enabled: true
+  hostnames:
+    - libguides.canvas.uw.edu
+
 lifecycle:
   enabled: true
   preStop:
@@ -44,9 +49,9 @@ memcached:
 
 certs:
   mounted: true
-  certPath: /certs/libguides.canvas.uw.edu-ic.cert
-  keyPath: /certs/libguides.canvas.uw.edu-ic.key
-  secretName: libguides.canvas.uw.edu-ic-certs
+  certPath: /certs/libguides.canvas.uw.edu-uwca.cert
+  keyPath: /certs/libguides.canvas.uw.edu-uwca.key
+  secretName: libguides.canvas.uw.edu-uwca-certs
 
 environmentVariables:
   - name: CLUSTER_CNAME
@@ -63,6 +68,8 @@ environmentVariables:
     value: "5"
   - name: LTI_CONFIG_DIRECTORY
     value: /lti/config
+  - name: OPENSSL_CONF
+    value: /ssl/openssl.cnf
 
 externalSecrets:
   enabled: true
@@ -88,13 +95,13 @@ externalSecrets:
           property: private-key-1.key
         - name: public-key-1.key
           property: public-key-1.key
-    - name: libguides.canvas.uw.edu-ic-certs
-      externalKey: libguides/prod/ic-certs
+    - name: libguides.canvas.uw.edu-uwca-certs
+      externalKey: libguides/prod/uwca-certs
       data:
-        - name: libguides.canvas.uw.edu-ic.cert
-          property: libguides.canvas.uw.edu-ic.cert
-        - name: libguides.canvas.uw.edu-ic.key
-          property: libguides.canvas.uw.edu-ic.key
+        - name: libguides.canvas.uw.edu-uwca.cert
+          property: libguides.canvas.uw.edu-uwca.cert
+        - name: libguides.canvas.uw.edu-uwca.key
+          property: libguides.canvas.uw.edu-uwca.key
 
 environmentVariablesSecrets:
   django-secret:
@@ -127,6 +134,13 @@ podVolumes:
     mount:
       mountPath: /lti/config
     containers: [base]
+  openssl-config:
+    volume:
+      configMap:
+        name: openssl-conf
+    mount:
+      mountPath: /ssl
+    containers: [base]
 
 configmaps:
   lti-tool-config:
@@ -143,3 +157,14 @@ configmaps:
           "deployment_ids": ["212930:c78d46b24c785a8ad37b5bf9bdf26ceb32cc9d18"]
         }]
       }
+  openssl-conf:
+    openssl.cnf: |
+      # Downgrade openssl security level to support UWCA certificates with Ubuntu 24.04
+      openssl_conf = default_conf
+      [ default_conf ]
+      ssl_conf = ssl_sect
+      [ssl_sect]
+      system_default = system_default_sect
+      [system_default_sect]
+      MinProtocol = TLSv1.2
+      CipherString = DEFAULT:@SECLEVEL=1
