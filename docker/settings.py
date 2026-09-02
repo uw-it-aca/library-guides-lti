@@ -22,3 +22,9 @@ LIBRARY_REDIRECTS = [
     # (account_sis_id, redirect_url, redirect_name)
     ('uwcourse:seattle:law', 'https://liblawuw.libguides.com/er.php?b=c', 'Law Library E-Reserves'),
 ]
+
+LOGGING['loggers']['urllib3'] = {
+    'handlers': ['stdout', 'stderr'],
+    'level': 'DEBUG',
+    'propagate': True,
+}
