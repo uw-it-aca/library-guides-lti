@@ -6,21 +6,6 @@ targetAverageUtilization: 100
 affinity:
    podsSpanNodes: true
 
-ingress:
-  enabled: true
-  tls:
-    libguides:
-      secretName: libguides.canvas.uw.edu-ingress-cert
-      hosts:
-        - libguides.canvas.uw.edu
-  hosts:
-    libguides:
-      host: libguides.canvas.uw.edu
-      paths:
-        - "/"
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt
-
 gateway:
   enabled: true
   hostnames:
